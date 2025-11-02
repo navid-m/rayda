@@ -3,40 +3,89 @@ with Raylib_Types;
 
 package Raylib_Bindings is
    pragma Pure;
-
+   
    use type Raylib_Types.Color;
    use type Raylib_Types.Vector2;
-
+   use type Raylib_Types.Vector3;
+   use type Raylib_Types.Rectangle;
+   use type Raylib_Types.Texture;
+   use type Raylib_Types.Sound;
+   
    procedure Init_Window(width, height : Interfaces.C.int; title : Interfaces.C.char_array);
    pragma Import (C, Init_Window, "InitWindow");
-
+   
    procedure Close_Window;
    pragma Import (C, Close_Window, "CloseWindow");
-
+   
    function Window_Should_Close return Interfaces.C.int;
    pragma Import (C, Window_Should_Close, "WindowShouldClose");
-
+   
    procedure Set_Target_FPS(fps : Interfaces.C.int);
    pragma Import (C, Set_Target_FPS, "SetTargetFPS");
-
+   
+   function Get_FPS return Interfaces.C.int;
+   pragma Import (C, Get_FPS, "GetFPS");
+   
    procedure Begin_Drawing;
    pragma Import (C, Begin_Drawing, "BeginDrawing");
-
+   
    procedure End_Drawing;
    pragma Import (C, End_Drawing, "EndDrawing");
-
+   
    procedure Clear_Background(color : Raylib_Types.Color);
    pragma Import (C, Clear_Background, "ClearBackground");
-
+   
    procedure Draw_Circle(center_x, center_y : Interfaces.C.int; radius : Interfaces.C.C_float; color : Raylib_Types.Color);
    pragma Import (C, Draw_Circle, "DrawCircle");
-
+   
    procedure Draw_Rectangle(pos_x, pos_y, width, height : Interfaces.C.int; color : Raylib_Types.Color);
    pragma Import (C, Draw_Rectangle, "DrawRectangle");
-
+   
+   procedure Draw_Line(start_pos_x, start_pos_y, end_pos_x, end_pos_y : Interfaces.C.int; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Line, "DrawLine");
+   
+   procedure Draw_Triangle(v1, v2, v3 : Raylib_Types.Vector2; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Triangle, "DrawTriangle");
+   
+   function Load_Texture(file_name : Interfaces.C.char_array) return Raylib_Types.Texture;
+   pragma Import (C, Load_Texture, "LoadTexture");
+   
+   procedure Unload_Texture(texture : Raylib_Types.Texture);
+   pragma Import (C, Unload_Texture, "UnloadTexture");
+   
+   procedure Draw_Texture(texture : Raylib_Types.Texture; pos_x, pos_y : Interfaces.C.int; tint : Raylib_Types.Color);
+   pragma Import (C, Draw_Texture, "DrawTexture");
+   
+   procedure Draw_Text(text : Interfaces.C.char_array; pos_x, pos_y, font_size : Interfaces.C.int; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Text, "DrawText");
+   
    function Is_Key_Pressed(key : Interfaces.C.int) return Interfaces.C.int;
    pragma Import (C, Is_Key_Pressed, "IsKeyPressed");
-
+   
+   function Is_Key_Down(key : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Key_Down, "IsKeyDown");
+   
+   function Is_Mouse_Button_Pressed(button : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Mouse_Button_Pressed, "IsMouseButtonPressed");
+   
    function Get_Mouse_Position return Raylib_Types.Vector2;
    pragma Import (C, Get_Mouse_Position, "GetMousePosition");
+   
+   procedure Begin_Mode3D(camera : Raylib_Types.Camera3D);
+   pragma Import (C, Begin_Mode3D, "BeginMode3D");
+   
+   procedure End_Mode3D;
+   pragma Import (C, End_Mode3D, "EndMode3D");
+   
+   procedure Init_Audio_Device;
+   pragma Import (C, Init_Audio_Device, "InitAudioDevice");
+   
+   procedure Close_Audio_Device;
+   pragma Import (C, Close_Audio_Device, "CloseAudioDevice");
+   
+   function Load_Sound(file_name : Interfaces.C.char_array) return Raylib_Types.Sound;
+   pragma Import (C, Load_Sound, "LoadSound");
+   
+   procedure Play_Sound(sound : Raylib_Types.Sound);
+   pragma Import (C, Play_Sound, "PlaySound");
 end Raylib_Bindings;
