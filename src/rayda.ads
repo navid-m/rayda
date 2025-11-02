@@ -1743,28 +1743,23 @@ package Rayda is
      (flag : Interfaces.C.unsigned) return Interfaces.C.int;
    pragma Import (C, Is_Window_State, "IsWindowState");
 
-   procedure Set_Window_State
-     (flags : Interfaces.C.unsigned);
+   procedure Set_Window_State (flags : Interfaces.C.unsigned);
    pragma Import (C, Set_Window_State, "SetWindowState");
 
-   procedure Clear_Window_State
-     (flags : Interfaces.C.unsigned);
+   procedure Clear_Window_State (flags : Interfaces.C.unsigned);
    pragma Import (C, Clear_Window_State, "ClearWindowState");
 
    procedure Toggle_Borderless_Windowed;
    pragma Import (C, Toggle_Borderless_Windowed, "ToggleBorderlessWindowed");
 
    procedure Set_Window_Icons
-     (images : access Rayda_Types.Image;
-      count : Interfaces.C.int);
+     (images : access Rayda_Types.Image; count : Interfaces.C.int);
    pragma Import (C, Set_Window_Icons, "SetWindowIcons");
 
-   procedure Set_Window_Max_Size
-     (width, height : Interfaces.C.int);
+   procedure Set_Window_Max_Size (width, height : Interfaces.C.int);
    pragma Import (C, Set_Window_Max_Size, "SetWindowMaxSize");
 
-   procedure Set_Window_Opacity
-     (opacity : Interfaces.C.C_float);
+   procedure Set_Window_Opacity (opacity : Interfaces.C.C_float);
    pragma Import (C, Set_Window_Opacity, "SetWindowOpacity");
 
    procedure Set_Window_Focused;
@@ -1799,8 +1794,7 @@ package Rayda is
      (monitor : Interfaces.C.int) return Interfaces.C.Strings.chars_ptr;
    pragma Import (C, Get_Monitor_Name, "GetMonitorName");
 
-   procedure Set_Clipboard_Text
-     (text : Interfaces.C.char_array);
+   procedure Set_Clipboard_Text (text : Interfaces.C.char_array);
    pragma Import (C, Set_Clipboard_Text, "SetClipboardText");
 
    function Get_Clipboard_Image return Rayda_Types.Image;
@@ -1814,5 +1808,85 @@ package Rayda is
 
    procedure Disable_Event_Waiting;
    pragma Import (C, Disable_Event_Waiting, "DisableEventWaiting");
+
+   function Is_File_Extension
+     (file_name, ext : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Is_File_Extension, "IsFileExtension");
+
+   function Get_File_Length
+     (file_name : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Get_File_Length, "GetFileLength");
+
+   function Get_File_Extension
+     (file_name : Interfaces.C.char_array)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_File_Extension, "GetFileExtension");
+
+   function Get_File_Name
+     (file_path : Interfaces.C.char_array)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_File_Name, "GetFileName");
+
+   function Get_File_Name_Without_Ext
+     (file_path : Interfaces.C.char_array)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_File_Name_Without_Ext, "GetFileNameWithoutExt");
+
+   function Get_Directory_Path
+     (file_path : Interfaces.C.char_array)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_Directory_Path, "GetDirectoryPath");
+
+   function Get_Prev_Directory_Path
+     (dir_path : Interfaces.C.char_array)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_Prev_Directory_Path, "GetPrevDirectoryPath");
+
+   function Get_Working_Directory return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_Working_Directory, "GetWorkingDirectory");
+
+   function Get_Application_Directory return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_Application_Directory, "GetApplicationDirectory");
+
+   function Make_Directory
+     (dir_path : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Make_Directory, "MakeDirectory");
+
+   function Change_Directory
+     (dir : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Change_Directory, "ChangeDirectory");
+
+   function Is_Path_File
+     (path : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Is_Path_File, "IsPathFile");
+
+   function Is_File_Name_Valid
+     (file_name : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Is_File_Name_Valid, "IsFileNameValid");
+
+   function Load_Directory_Files
+     (dir_path : Interfaces.C.char_array) return Rayda_Types.File_Path_List;
+   pragma Import (C, Load_Directory_Files, "LoadDirectoryFiles");
+
+   function Load_Directory_Files_Ex
+     (base_path, filter : Interfaces.C.char_array;
+      scan_subdirs      : Interfaces.C.int) return Rayda_Types.File_Path_List;
+   pragma Import (C, Load_Directory_Files_Ex, "LoadDirectoryFilesEx");
+
+   procedure Unload_Directory_Files (files : Rayda_Types.File_Path_List);
+   pragma Import (C, Unload_Directory_Files, "UnloadDirectoryFiles");
+
+   function Is_File_Dropped return Interfaces.C.int;
+   pragma Import (C, Is_File_Dropped, "IsFileDropped");
+
+   function Load_Dropped_Files return Rayda_Types.File_Path_List;
+   pragma Import (C, Load_Dropped_Files, "LoadDroppedFiles");
+
+   procedure Unload_Dropped_Files (files : Rayda_Types.File_Path_List);
+   pragma Import (C, Unload_Dropped_Files, "UnloadDroppedFiles");
+
+   function Get_File_Mod_Time
+     (file_name : Interfaces.C.char_array) return Interfaces.C.long;
+   pragma Import (C, Get_File_Mod_Time, "GetFileModTime");
 
 end Rayda;
