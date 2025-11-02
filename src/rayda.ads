@@ -609,6 +609,24 @@ package Rayda is
    procedure Set_Mouse_Cursor (cursor : Interfaces.C.int);
    pragma Import (C, Set_Mouse_Cursor, "SetMouseCursor");
 
+   procedure Show_Cursor;
+   pragma Import (C, Show_Cursor, "ShowCursor");
+
+   procedure Hide_Cursor;
+   pragma Import (C, Hide_Cursor, "HideCursor");
+
+   function Is_Cursor_Hidden return Interfaces.C.int;
+   pragma Import (C, Is_Cursor_Hidden, "IsCursorHidden");
+
+   procedure Enable_Cursor;
+   pragma Import (C, Enable_Cursor, "EnableCursor");
+
+   procedure Disable_Cursor;
+   pragma Import (C, Disable_Cursor, "DisableCursor");
+
+   function Is_Cursor_On_Screen return Interfaces.C.int;
+   pragma Import (C, Is_Cursor_On_Screen, "IsCursorOnScreen");
+
    function Get_Screen_Width return Interfaces.C.int;
    pragma Import (C, Get_Screen_Width, "GetScreenWidth");
 
