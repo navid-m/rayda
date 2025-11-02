@@ -209,16 +209,16 @@ package Rayda_Types is
    pragma Convention (C, Automation_Event_Params);
 
    type Automation_Event is record
-      frame : Interfaces.C.int;
+      frame      : Interfaces.C.int;
       event_type : Interfaces.C.int;
-      params : Automation_Event_Params;
+      params     : Automation_Event_Params;
    end record;
    pragma Convention (C, Automation_Event);
 
    type Automation_Event_List is record
       capacity : Interfaces.C.int;
-      count : Interfaces.C.int;
-      events : access Automation_Event;
+      count    : Interfaces.C.int;
+      events   : access Automation_Event;
    end record;
    pragma Convention (C, Automation_Event_List);
 
