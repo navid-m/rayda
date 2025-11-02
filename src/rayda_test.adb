@@ -1,5 +1,5 @@
-with Raylib_Bindings; use Raylib_Bindings;
-with Interfaces.C;    use Interfaces.C;
+with Rayda;         use Rayda;
+with Interfaces.C;  use Interfaces.C;
 
 procedure Main is
    Screen_Width  : constant := 800;

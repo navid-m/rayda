@@ -1,6 +1,6 @@
 with Interfaces.C;
 
-package Raylib_Types is
+package Rayda_Types is
    pragma Preelaborate;
 
    type Color is record
@@ -75,4 +75,4 @@ private
       stream      : Audio_Stream;
       frame_count : Interfaces.C.unsigned;
    end record;
-end Raylib_Types;
+end Rayda_Types;
