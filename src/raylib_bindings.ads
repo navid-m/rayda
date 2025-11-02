@@ -2,7 +2,7 @@ with Interfaces.C;
 with Raylib_Types;
 
 package Raylib_Bindings is
-   pragma Pure;
+   pragma Preelaborate;
    
    use type Raylib_Types.Color;
    use type Raylib_Types.Vector2;
@@ -10,6 +10,9 @@ package Raylib_Bindings is
    use type Raylib_Types.Rectangle;
    use type Raylib_Types.Texture;
    use type Raylib_Types.Sound;
+   use type Raylib_Types.Font;
+   use type Raylib_Types.Camera2D;
+   use type Raylib_Types.Camera3D;
    
    procedure Init_Window(width, height : Interfaces.C.int; title : Interfaces.C.char_array);
    pragma Import (C, Init_Window, "InitWindow");
@@ -77,6 +80,18 @@ package Raylib_Bindings is
    function Is_Key_Down(key : Interfaces.C.int) return Interfaces.C.int;
    pragma Import (C, Is_Key_Down, "IsKeyDown");
    
+   function Is_Key_Released(key : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Key_Released, "IsKeyReleased");
+
+   function Is_Key_Up(key : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Key_Up, "IsKeyUp");
+
+   function Get_Key_Pressed return Interfaces.C.int;
+   pragma Import (C, Get_Key_Pressed, "GetKeyPressed");
+
+   function Get_Char_Pressed return Interfaces.C.int;
+   pragma Import (C, Get_Char_Pressed, "GetCharPressed");
+
    function Is_Mouse_Button_Pressed(button : Interfaces.C.int) return Interfaces.C.int;
    pragma Import (C, Is_Mouse_Button_Pressed, "IsMouseButtonPressed");
    
@@ -112,4 +127,37 @@ package Raylib_Bindings is
    
    procedure Play_Sound(sound : Raylib_Types.Sound);
    pragma Import (C, Play_Sound, "PlaySound");
+   
+   procedure Stop_Sound(sound : Raylib_Types.Sound);
+   pragma Import (C, Stop_Sound, "StopSound");
+
+   procedure Pause_Sound(sound : Raylib_Types.Sound);
+   pragma Import (C, Pause_Sound, "PauseSound");
+
+   procedure Resume_Sound(sound : Raylib_Types.Sound);
+   pragma Import (C, Resume_Sound, "ResumeSound");
+
+   procedure Set_Sound_Volume(sound : Raylib_Types.Sound; volume : Interfaces.C.C_float);
+   pragma Import (C, Set_Sound_Volume, "SetSoundVolume");
+
+   procedure Set_Window_Title(title : Interfaces.C.char_array);
+   pragma Import (C, Set_Window_Title, "SetWindowTitle");
+
+   procedure Toggle_Fullscreen;
+   pragma Import (C, Toggle_Fullscreen, "ToggleFullscreen");
+
+   procedure Draw_Circle_Gradient(center_x, center_y : Interfaces.C.int; radius : Interfaces.C.C_float; color1, color2 : Raylib_Types.Color);
+   pragma Import (C, Draw_Circle_Gradient, "DrawCircleGradient");
+
+   procedure Draw_Rectangle_Gradient(pos_x, pos_y, width, height : Interfaces.C.int; color1, color2 : Raylib_Types.Color);
+   pragma Import (C, Draw_Rectangle_Gradient, "DrawRectangleGradient");
+
+   procedure Draw_Rectangle_Lines(pos_x, pos_y, width, height : Interfaces.C.int; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Rectangle_Lines, "DrawRectangleLines");
+
+   procedure Draw_Text_Ex(font : Raylib_Types.Font; text : Interfaces.C.char_array; position : Raylib_Types.Vector2; font_size, spacing : Interfaces.C.C_float; tint : Raylib_Types.Color);
+   pragma Import (C, Draw_Text_Ex, "DrawTextEx");
+
+   function Measure_Text_Ex(font : Raylib_Types.Font; text : Interfaces.C.char_array; font_size, spacing : Interfaces.C.C_float) return Raylib_Types.Vector2;
+   pragma Import (C, Measure_Text_Ex, "MeasureTextEx");
 end Raylib_Bindings;
