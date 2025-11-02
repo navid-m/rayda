@@ -1,4 +1,5 @@
 with Interfaces.C;
+with Interfaces.C.Strings;
 with Rayda_Types;
 
 package Rayda is
@@ -387,6 +388,158 @@ package Rayda is
 
    procedure Unload_Font (font : Rayda_Types.Font);
    pragma Import (C, Unload_Font, "UnloadFont");
+
+   procedure Draw_FPS (pos_x, pos_y : Interfaces.C.int);
+   pragma Import (C, Draw_FPS, "DrawFPS");
+
+   procedure Draw_Text_Codepoint
+     (font      : Rayda_Types.Font;
+      codepoint : Interfaces.C.int;
+      position  : Rayda_Types.Vector2;
+      font_size : Interfaces.C.C_float;
+      tint      : Rayda_Types.Color);
+   pragma Import (C, Draw_Text_Codepoint, "DrawTextCodepoint");
+
+   procedure Draw_Text_Codepoints
+     (font               : Rayda_Types.Font;
+      codepoints         : access Interfaces.C.int;
+      codepoint_count    : Interfaces.C.int;
+      position           : Rayda_Types.Vector2;
+      font_size, spacing : Interfaces.C.C_float;
+      tint               : Rayda_Types.Color);
+   pragma Import (C, Draw_Text_Codepoints, "DrawTextCodepoints");
+
+   procedure Set_Text_Line_Spacing (spacing : Interfaces.C.int);
+   pragma Import (C, Set_Text_Line_Spacing, "SetTextLineSpacing");
+
+   function Get_Glyph_Index
+     (font : Rayda_Types.Font; codepoint : Interfaces.C.int)
+      return Interfaces.C.int;
+   pragma Import (C, Get_Glyph_Index, "GetGlyphIndex");
+
+   function Get_Glyph_Info
+     (font : Rayda_Types.Font; codepoint : Interfaces.C.int)
+      return Rayda_Types.Glyph_Info;
+   pragma Import (C, Get_Glyph_Info, "GetGlyphInfo");
+
+   function Get_Glyph_Atlas_Rec
+     (font : Rayda_Types.Font; codepoint : Interfaces.C.int)
+      return Rayda_Types.Rectangle;
+   pragma Import (C, Get_Glyph_Atlas_Rec, "GetGlyphAtlasRec");
+
+   function Load_UTF8
+     (codepoints : access Interfaces.C.int; length : Interfaces.C.int)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Load_UTF8, "LoadUTF8");
+
+   procedure Unload_UTF8 (text : Interfaces.C.Strings.chars_ptr);
+   pragma Import (C, Unload_UTF8, "UnloadUTF8");
+
+   function Load_Codepoints
+     (text : Interfaces.C.char_array; count : access Interfaces.C.int)
+      return access Interfaces.C.int;
+   pragma Import (C, Load_Codepoints, "LoadCodepoints");
+
+   procedure Unload_Codepoints (codepoints : access Interfaces.C.int);
+   pragma Import (C, Unload_Codepoints, "UnloadCodepoints");
+
+   function Get_Codepoint_Count
+     (text : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Get_Codepoint_Count, "GetCodepointCount");
+
+   function Get_Codepoint
+     (text : Interfaces.C.char_array; codepoint_size : access Interfaces.C.int)
+      return Interfaces.C.int;
+   pragma Import (C, Get_Codepoint, "GetCodepoint");
+
+   function Get_Codepoint_Next
+     (text : Interfaces.C.char_array; codepoint_size : access Interfaces.C.int)
+      return Interfaces.C.int;
+   pragma Import (C, Get_Codepoint_Next, "GetCodepointNext");
+
+   function Get_Codepoint_Previous
+     (text : Interfaces.C.char_array; codepoint_size : access Interfaces.C.int)
+      return Interfaces.C.int;
+   pragma Import (C, Get_Codepoint_Previous, "GetCodepointPrevious");
+
+   function Codepoint_To_UTF8
+     (codepoint : Interfaces.C.int; utf8_size : access Interfaces.C.int)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Codepoint_To_UTF8, "CodepointToUTF8");
+
+   function Text_Copy
+     (dst, src : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Text_Copy, "TextCopy");
+
+   function Text_Is_Equal
+     (text1, text2 : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Text_Is_Equal, "TextIsEqual");
+
+   function Text_Length
+     (text : Interfaces.C.char_array) return Interfaces.C.unsigned;
+   pragma Import (C, Text_Length, "TextLength");
+
+   function Text_Format
+     (text : Interfaces.C.char_array) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_Format, "TextFormat");
+
+   function Text_Subtext
+     (text : Interfaces.C.char_array; position, length : Interfaces.C.int)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_Subtext, "TextSubtext");
+
+   function Text_Replace
+     (text, replace, by : Interfaces.C.char_array)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_Replace, "TextReplace");
+
+   function Text_Insert
+     (text, insert : Interfaces.C.char_array; position : Interfaces.C.int)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_Insert, "TextInsert");
+
+   function Text_Join
+     (text_list : access Interfaces.C.Strings.chars_ptr;
+      count     : Interfaces.C.int;
+      delimiter : Interfaces.C.char_array)
+      return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_Join, "TextJoin");
+
+   function Text_Split
+     (text      : Interfaces.C.char_array;
+      delimiter : Interfaces.C.char;
+      count     : access Interfaces.C.int)
+      return access Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_Split, "TextSplit");
+
+   procedure Text_Append
+     (text, append : Interfaces.C.char_array;
+      position     : access Interfaces.C.int);
+   pragma Import (C, Text_Append, "TextAppend");
+
+   function Text_Find_Index
+     (text, find : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Text_Find_Index, "TextFindIndex");
+
+   function Text_To_Upper
+     (text : Interfaces.C.char_array) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_To_Upper, "TextToUpper");
+
+   function Text_To_Lower
+     (text : Interfaces.C.char_array) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_To_Lower, "TextToLower");
+
+   function Text_To_Pascal
+     (text : Interfaces.C.char_array) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_To_Pascal, "TextToPascal");
+
+   function Text_To_Snake
+     (text : Interfaces.C.char_array) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_To_Snake, "TextToSnake");
+
+   function Text_To_Camel
+     (text : Interfaces.C.char_array) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Text_To_Camel, "TextToCamel");
 
    function Is_Key_Pressed (key : Interfaces.C.int) return Interfaces.C.int;
    pragma Import (C, Is_Key_Pressed, "IsKeyPressed");
