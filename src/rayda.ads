@@ -13,6 +13,8 @@ package Rayda is
    use type Rayda_Types.Font;
    use type Rayda_Types.Camera2D;
    use type Rayda_Types.Camera3D;
+   use type Rayda_Types.Model;
+   use type Rayda_Types.Music;
 
    procedure Init_Window
      (width, height : Interfaces.C.int; title : Interfaces.C.char_array);
@@ -486,6 +488,65 @@ package Rayda is
    procedure End_Mode3D;
    pragma Import (C, End_Mode3D, "EndMode3D");
 
+   procedure Draw_Cube
+     (position : Rayda_Types.Vector3;
+      width, height, length : Interfaces.C.C_float;
+      color : Rayda_Types.Color);
+   pragma Import (C, Draw_Cube, "DrawCube");
+
+   procedure Draw_Cube_Wires
+     (position : Rayda_Types.Vector3;
+      width, height, length : Interfaces.C.C_float;
+      color : Rayda_Types.Color);
+   pragma Import (C, Draw_Cube_Wires, "DrawCubeWires");
+
+   procedure Draw_Sphere
+     (center_pos : Rayda_Types.Vector3;
+      radius : Interfaces.C.C_float;
+      color : Rayda_Types.Color);
+   pragma Import (C, Draw_Sphere, "DrawSphere");
+
+   procedure Draw_Sphere_Wires
+     (center_pos : Rayda_Types.Vector3;
+      radius : Interfaces.C.C_float;
+      rings, slices : Interfaces.C.int;
+      color : Rayda_Types.Color);
+   pragma Import (C, Draw_Sphere_Wires, "DrawSphereWires");
+
+   procedure Draw_Cylinder
+     (position : Rayda_Types.Vector3;
+      radius_top, radius_bottom : Interfaces.C.C_float;
+      height : Interfaces.C.C_float;
+      slices : Interfaces.C.int;
+      color : Rayda_Types.Color);
+   pragma Import (C, Draw_Cylinder, "DrawCylinder");
+
+   procedure Draw_Cylinder_Wires
+     (position : Rayda_Types.Vector3;
+      radius_top, radius_bottom : Interfaces.C.C_float;
+      height : Interfaces.C.C_float;
+      slices : Interfaces.C.int;
+      color : Rayda_Types.Color);
+   pragma Import (C, Draw_Cylinder_Wires, "DrawCylinderWires");
+
+   procedure Draw_Grid
+     (slices : Interfaces.C.int; spacing : Interfaces.C.C_float);
+   pragma Import (C, Draw_Grid, "DrawGrid");
+
+   function Load_Model
+     (file_name : Interfaces.C.char_array) return Rayda_Types.Model;
+   pragma Import (C, Load_Model, "LoadModel");
+
+   procedure Unload_Model (model : Rayda_Types.Model);
+   pragma Import (C, Unload_Model, "UnloadModel");
+
+   procedure Draw_Model
+     (model : Rayda_Types.Model;
+      position : Rayda_Types.Vector3;
+      scale : Interfaces.C.C_float;
+      tint : Rayda_Types.Color);
+   pragma Import (C, Draw_Model, "DrawModel");
+
    function Check_Collision_Recs
      (rec1, rec2 : Rayda_Types.Rectangle) return Interfaces.C.int;
    pragma Import (C, Check_Collision_Recs, "CheckCollisionRecs");
@@ -623,4 +684,50 @@ package Rayda is
    function Directory_Exists
      (dir_path : Interfaces.C.char_array) return Interfaces.C.int;
    pragma Import (C, Directory_Exists, "DirectoryExists");
+
+   function Load_Music_Stream
+     (file_name : Interfaces.C.char_array) return Rayda_Types.Music;
+   pragma Import (C, Load_Music_Stream, "LoadMusicStream");
+
+   procedure Unload_Music_Stream (music : Rayda_Types.Music);
+   pragma Import (C, Unload_Music_Stream, "UnloadMusicStream");
+
+   procedure Play_Music_Stream (music : Rayda_Types.Music);
+   pragma Import (C, Play_Music_Stream, "PlayMusicStream");
+
+   procedure Update_Music_Stream (music : Rayda_Types.Music);
+   pragma Import (C, Update_Music_Stream, "UpdateMusicStream");
+
+   procedure Stop_Music_Stream (music : Rayda_Types.Music);
+   pragma Import (C, Stop_Music_Stream, "StopMusicStream");
+
+   procedure Pause_Music_Stream (music : Rayda_Types.Music);
+   pragma Import (C, Pause_Music_Stream, "PauseMusicStream");
+
+   procedure Resume_Music_Stream (music : Rayda_Types.Music);
+   pragma Import (C, Resume_Music_Stream, "ResumeMusicStream");
+
+   function Is_Music_Stream_Playing
+     (music : Rayda_Types.Music) return Interfaces.C.int;
+   pragma Import (C, Is_Music_Stream_Playing, "IsMusicStreamPlaying");
+
+   procedure Set_Music_Volume
+     (music : Rayda_Types.Music; volume : Interfaces.C.C_float);
+   pragma Import (C, Set_Music_Volume, "SetMusicVolume");
+
+   procedure Set_Music_Pitch
+     (music : Rayda_Types.Music; pitch : Interfaces.C.C_float);
+   pragma Import (C, Set_Music_Pitch, "SetMusicPitch");
+
+   procedure Set_Music_Pan
+     (music : Rayda_Types.Music; pan : Interfaces.C.C_float);
+   pragma Import (C, Set_Music_Pan, "SetMusicPan");
+
+   function Get_Music_Time_Length
+     (music : Rayda_Types.Music) return Interfaces.C.C_float;
+   pragma Import (C, Get_Music_Time_Length, "GetMusicTimeLength");
+
+   function Get_Music_Time_Played
+     (music : Rayda_Types.Music) return Interfaces.C.C_float;
+   pragma Import (C, Get_Music_Time_Played, "GetMusicTimePlayed");
 end Rayda;
