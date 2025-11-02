@@ -56,6 +56,7 @@ begin
             2.0,
             Snow_Color);
       end loop;
+      Rayda.Draw_FPS(Interfaces.C.int(11), Interfaces.C.int(11));
 
       Rayda.End_Drawing;
    end loop;
