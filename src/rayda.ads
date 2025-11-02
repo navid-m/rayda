@@ -622,6 +622,84 @@ package Rayda is
       tint     : Rayda_Types.Color);
    pragma Import (C, Draw_Billboard_Pro, "DrawBillboardPro");
 
+   procedure Draw_Line3D
+     (start_pos, end_pos : Rayda_Types.Vector3; color : Rayda_Types.Color);
+   pragma Import (C, Draw_Line3D, "DrawLine3D");
+
+   procedure Draw_Point3D
+     (position : Rayda_Types.Vector3; color : Rayda_Types.Color);
+   pragma Import (C, Draw_Point3D, "DrawPoint3D");
+
+   procedure Draw_Circle3D
+     (center         : Rayda_Types.Vector3;
+      radius         : Interfaces.C.C_float;
+      rotation_axis  : Rayda_Types.Vector3;
+      rotation_angle : Interfaces.C.C_float;
+      color          : Rayda_Types.Color);
+   pragma Import (C, Draw_Circle3D, "DrawCircle3D");
+
+   procedure Draw_Triangle3D
+     (v1, v2, v3 : Rayda_Types.Vector3; color : Rayda_Types.Color);
+   pragma Import (C, Draw_Triangle3D, "DrawTriangle3D");
+
+   procedure Draw_Triangle_Strip3D
+     (points      : access Rayda_Types.Vector3;
+      point_count : Interfaces.C.int;
+      color       : Rayda_Types.Color);
+   pragma Import (C, Draw_Triangle_Strip3D, "DrawTriangleStrip3D");
+
+   procedure Draw_Cube_V
+     (position, size : Rayda_Types.Vector3; color : Rayda_Types.Color);
+   pragma Import (C, Draw_Cube_V, "DrawCubeV");
+
+   procedure Draw_Cube_Wires_V
+     (position, size : Rayda_Types.Vector3; color : Rayda_Types.Color);
+   pragma Import (C, Draw_Cube_Wires_V, "DrawCubeWiresV");
+
+   procedure Draw_Sphere_Ex
+     (center_pos    : Rayda_Types.Vector3;
+      radius        : Interfaces.C.C_float;
+      rings, slices : Interfaces.C.int;
+      color         : Rayda_Types.Color);
+   pragma Import (C, Draw_Sphere_Ex, "DrawSphereEx");
+
+   procedure Draw_Cylinder_Ex
+     (start_pos, end_pos       : Rayda_Types.Vector3;
+      start_radius, end_radius : Interfaces.C.C_float;
+      sides                    : Interfaces.C.int;
+      color                    : Rayda_Types.Color);
+   pragma Import (C, Draw_Cylinder_Ex, "DrawCylinderEx");
+
+   procedure Draw_Cylinder_Wires_Ex
+     (start_pos, end_pos       : Rayda_Types.Vector3;
+      start_radius, end_radius : Interfaces.C.C_float;
+      sides                    : Interfaces.C.int;
+      color                    : Rayda_Types.Color);
+   pragma Import (C, Draw_Cylinder_Wires_Ex, "DrawCylinderWiresEx");
+
+   procedure Draw_Capsule
+     (start_pos, end_pos : Rayda_Types.Vector3;
+      radius             : Interfaces.C.C_float;
+      slices, rings      : Interfaces.C.int;
+      color              : Rayda_Types.Color);
+   pragma Import (C, Draw_Capsule, "DrawCapsule");
+
+   procedure Draw_Capsule_Wires
+     (start_pos, end_pos : Rayda_Types.Vector3;
+      radius             : Interfaces.C.C_float;
+      slices, rings      : Interfaces.C.int;
+      color              : Rayda_Types.Color);
+   pragma Import (C, Draw_Capsule_Wires, "DrawCapsuleWires");
+
+   procedure Draw_Plane
+     (center_pos : Rayda_Types.Vector3;
+      size       : Rayda_Types.Vector2;
+      color      : Rayda_Types.Color);
+   pragma Import (C, Draw_Plane, "DrawPlane");
+
+   procedure Draw_Ray (ray : Rayda_Types.Ray; color : Rayda_Types.Color);
+   pragma Import (C, Draw_Ray, "DrawRay");
+
    function Check_Collision_Recs
      (rec1, rec2 : Rayda_Types.Rectangle) return Interfaces.C.int;
    pragma Import (C, Check_Collision_Recs, "CheckCollisionRecs");
