@@ -1376,4 +1376,134 @@ package Rayda is
       font_size, spacing : Interfaces.C.C_float;
       tint               : Rayda_Types.Color);
    pragma Import (C, Image_Draw_Text_Ex, "ImageDrawTextEx");
+
+   function Load_Automation_Event_List
+     (file_name : Interfaces.C.char_array)
+      return Rayda_Types.Automation_Event_List;
+   pragma Import (C, Load_Automation_Event_List, "LoadAutomationEventList");
+
+   procedure Unload_Automation_Event_List
+     (list : Rayda_Types.Automation_Event_List);
+   pragma
+     Import (C, Unload_Automation_Event_List, "UnloadAutomationEventList");
+
+   function Export_Automation_Event_List
+     (list      : Rayda_Types.Automation_Event_List;
+      file_name : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma
+     Import (C, Export_Automation_Event_List, "ExportAutomationEventList");
+
+   procedure Set_Automation_Event_List
+     (list : access Rayda_Types.Automation_Event_List);
+   pragma Import (C, Set_Automation_Event_List, "SetAutomationEventList");
+
+   procedure Set_Automation_Event_Base_Frame (frame : Interfaces.C.int);
+   pragma
+     Import
+       (C, Set_Automation_Event_Base_Frame, "SetAutomationEventBaseFrame");
+
+   procedure Start_Automation_Event_Recording;
+   pragma
+     Import
+       (C, Start_Automation_Event_Recording, "StartAutomationEventRecording");
+
+   procedure Stop_Automation_Event_Recording;
+   pragma
+     Import
+       (C, Stop_Automation_Event_Recording, "StopAutomationEventRecording");
+
+   procedure Play_Automation_Event (event : Rayda_Types.Automation_Event);
+   pragma Import (C, Play_Automation_Event, "PlayAutomationEvent");
+
+   function Is_Key_Pressed_Repeat
+     (key : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Key_Pressed_Repeat, "IsKeyPressedRepeat");
+
+   function Is_Gamepad_Available
+     (gamepad : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Gamepad_Available, "IsGamepadAvailable");
+
+   function Get_Gamepad_Name
+     (gamepad : Interfaces.C.int) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_Gamepad_Name, "GetGamepadName");
+
+   function Is_Gamepad_Button_Pressed
+     (gamepad, button : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Gamepad_Button_Pressed, "IsGamepadButtonPressed");
+
+   function Is_Gamepad_Button_Down
+     (gamepad, button : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Gamepad_Button_Down, "IsGamepadButtonDown");
+
+   function Is_Gamepad_Button_Released
+     (gamepad, button : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Gamepad_Button_Released, "IsGamepadButtonReleased");
+
+   function Is_Gamepad_Button_Up
+     (gamepad, button : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Is_Gamepad_Button_Up, "IsGamepadButtonUp");
+
+   function Get_Gamepad_Button_Pressed return Interfaces.C.int;
+   pragma Import (C, Get_Gamepad_Button_Pressed, "GetGamepadButtonPressed");
+
+   function Get_Gamepad_Axis_Count
+     (gamepad : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Get_Gamepad_Axis_Count, "GetGamepadAxisCount");
+
+   function Get_Gamepad_Axis_Movement
+     (gamepad, axis : Interfaces.C.int) return Interfaces.C.C_float;
+   pragma Import (C, Get_Gamepad_Axis_Movement, "GetGamepadAxisMovement");
+
+   function Set_Gamepad_Mappings
+     (mappings : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Set_Gamepad_Mappings, "SetGamepadMappings");
+
+   procedure Set_Gamepad_Vibration
+     (gamepad                 : Interfaces.C.int;
+      left_motor, right_motor : Interfaces.C.C_float;
+      duration                : Interfaces.C.C_float);
+   pragma Import (C, Set_Gamepad_Vibration, "SetGamepadVibration");
+
+   function Get_Touch_X return Interfaces.C.int;
+   pragma Import (C, Get_Touch_X, "GetTouchX");
+
+   function Get_Touch_Y return Interfaces.C.int;
+   pragma Import (C, Get_Touch_Y, "GetTouchY");
+
+   function Get_Touch_Position
+     (index : Interfaces.C.int) return Rayda_Types.Vector2;
+   pragma Import (C, Get_Touch_Position, "GetTouchPosition");
+
+   function Get_Touch_Point_Id
+     (index : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Get_Touch_Point_Id, "GetTouchPointId");
+
+   function Get_Touch_Point_Count return Interfaces.C.int;
+   pragma Import (C, Get_Touch_Point_Count, "GetTouchPointCount");
+
+   procedure Set_Gestures_Enabled (flags : Interfaces.C.unsigned);
+   pragma Import (C, Set_Gestures_Enabled, "SetGesturesEnabled");
+
+   function Is_Gesture_Detected
+     (gesture : Interfaces.C.unsigned) return Interfaces.C.int;
+   pragma Import (C, Is_Gesture_Detected, "IsGestureDetected");
+
+   function Get_Gesture_Detected return Interfaces.C.int;
+   pragma Import (C, Get_Gesture_Detected, "GetGestureDetected");
+
+   function Get_Gesture_Hold_Duration return Interfaces.C.C_float;
+   pragma Import (C, Get_Gesture_Hold_Duration, "GetGestureHoldDuration");
+
+   function Get_Gesture_Drag_Vector return Rayda_Types.Vector2;
+   pragma Import (C, Get_Gesture_Drag_Vector, "GetGestureDragVector");
+
+   function Get_Gesture_Drag_Angle return Interfaces.C.C_float;
+   pragma Import (C, Get_Gesture_Drag_Angle, "GetGestureDragAngle");
+
+   function Get_Gesture_Pinch_Vector return Rayda_Types.Vector2;
+   pragma Import (C, Get_Gesture_Pinch_Vector, "GetGesturePinchVector");
+
+   function Get_Gesture_Pinch_Angle return Interfaces.C.C_float;
+   pragma Import (C, Get_Gesture_Pinch_Angle, "GetGesturePinchAngle");
+
 end Rayda;
