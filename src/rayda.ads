@@ -1806,6 +1806,9 @@ package Rayda is
    function Get_Clipboard_Image return Rayda_Types.Image;
    pragma Import (C, Get_Clipboard_Image, "GetClipboardImage");
 
+   function Get_Clipboard_Text return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_Clipboard_Text, "GetClipboardText");
+
    procedure Enable_Event_Waiting;
    pragma Import (C, Enable_Event_Waiting, "EnableEventWaiting");
 
