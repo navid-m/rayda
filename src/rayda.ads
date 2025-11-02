@@ -1078,4 +1078,302 @@ package Rayda is
       file_size : access Interfaces.C.int)
       return access Interfaces.C.unsigned_char;
    pragma Import (C, Export_Image_To_Memory, "ExportImageToMemory");
+
+   function Image_Copy (image : Rayda_Types.Image) return Rayda_Types.Image;
+   pragma Import (C, Image_Copy, "ImageCopy");
+
+   function Image_From_Image
+     (image : Rayda_Types.Image; rec : Rayda_Types.Rectangle)
+      return Rayda_Types.Image;
+   pragma Import (C, Image_From_Image, "ImageFromImage");
+
+   function Image_From_Channel
+     (image : Rayda_Types.Image; selected_channel : Interfaces.C.int)
+      return Rayda_Types.Image;
+   pragma Import (C, Image_From_Channel, "ImageFromChannel");
+
+   function Image_Text
+     (text      : Interfaces.C.char_array;
+      font_size : Interfaces.C.int;
+      color     : Rayda_Types.Color) return Rayda_Types.Image;
+   pragma Import (C, Image_Text, "ImageText");
+
+   function Image_Text_Ex
+     (font               : Rayda_Types.Font;
+      text               : Interfaces.C.char_array;
+      font_size, spacing : Interfaces.C.C_float;
+      tint               : Rayda_Types.Color) return Rayda_Types.Image;
+   pragma Import (C, Image_Text_Ex, "ImageTextEx");
+
+   procedure Image_Format
+     (image : access Rayda_Types.Image; new_format : Interfaces.C.int);
+   pragma Import (C, Image_Format, "ImageFormat");
+
+   procedure Image_To_POT
+     (image : access Rayda_Types.Image; fill : Rayda_Types.Color);
+   pragma Import (C, Image_To_POT, "ImageToPOT");
+
+   procedure Image_Crop
+     (image : access Rayda_Types.Image; crop : Rayda_Types.Rectangle);
+   pragma Import (C, Image_Crop, "ImageCrop");
+
+   procedure Image_Alpha_Crop
+     (image : access Rayda_Types.Image; threshold : Interfaces.C.C_float);
+   pragma Import (C, Image_Alpha_Crop, "ImageAlphaCrop");
+
+   procedure Image_Alpha_Clear
+     (image     : access Rayda_Types.Image;
+      color     : Rayda_Types.Color;
+      threshold : Interfaces.C.C_float);
+   pragma Import (C, Image_Alpha_Clear, "ImageAlphaClear");
+
+   procedure Image_Alpha_Mask
+     (image : access Rayda_Types.Image; alpha_mask : Rayda_Types.Image);
+   pragma Import (C, Image_Alpha_Mask, "ImageAlphaMask");
+
+   procedure Image_Alpha_Premultiply (image : access Rayda_Types.Image);
+   pragma Import (C, Image_Alpha_Premultiply, "ImageAlphaPremultiply");
+
+   procedure Image_Blur_Gaussian
+     (image : access Rayda_Types.Image; blur_size : Interfaces.C.int);
+   pragma Import (C, Image_Blur_Gaussian, "ImageBlurGaussian");
+
+   procedure Image_Kernel_Convolution
+     (image       : access Rayda_Types.Image;
+      kernel      : access Interfaces.C.C_float;
+      kernel_size : Interfaces.C.int);
+   pragma Import (C, Image_Kernel_Convolution, "ImageKernelConvolution");
+
+   procedure Image_Resize
+     (image                 : access Rayda_Types.Image;
+      new_width, new_height : Interfaces.C.int);
+   pragma Import (C, Image_Resize, "ImageResize");
+
+   procedure Image_Resize_NN
+     (image                 : access Rayda_Types.Image;
+      new_width, new_height : Interfaces.C.int);
+   pragma Import (C, Image_Resize_NN, "ImageResizeNN");
+
+   procedure Image_Resize_Canvas
+     (image                                     : access Rayda_Types.Image;
+      new_width, new_height, offset_x, offset_y : Interfaces.C.int;
+      fill                                      : Rayda_Types.Color);
+   pragma Import (C, Image_Resize_Canvas, "ImageResizeCanvas");
+
+   procedure Image_Mipmaps (image : access Rayda_Types.Image);
+   pragma Import (C, Image_Mipmaps, "ImageMipmaps");
+
+   procedure Image_Dither
+     (image                      : access Rayda_Types.Image;
+      r_bpp, g_bpp, b_bpp, a_bpp : Interfaces.C.int);
+   pragma Import (C, Image_Dither, "ImageDither");
+
+   procedure Image_Flip_Vertical (image : access Rayda_Types.Image);
+   pragma Import (C, Image_Flip_Vertical, "ImageFlipVertical");
+
+   procedure Image_Flip_Horizontal (image : access Rayda_Types.Image);
+   pragma Import (C, Image_Flip_Horizontal, "ImageFlipHorizontal");
+
+   procedure Image_Rotate
+     (image : access Rayda_Types.Image; degrees : Interfaces.C.int);
+   pragma Import (C, Image_Rotate, "ImageRotate");
+
+   procedure Image_Rotate_CW (image : access Rayda_Types.Image);
+   pragma Import (C, Image_Rotate_CW, "ImageRotateCW");
+
+   procedure Image_Rotate_CCW (image : access Rayda_Types.Image);
+   pragma Import (C, Image_Rotate_CCW, "ImageRotateCCW");
+
+   procedure Image_Color_Tint
+     (image : access Rayda_Types.Image; color : Rayda_Types.Color);
+   pragma Import (C, Image_Color_Tint, "ImageColorTint");
+
+   procedure Image_Color_Invert (image : access Rayda_Types.Image);
+   pragma Import (C, Image_Color_Invert, "ImageColorInvert");
+
+   procedure Image_Color_Grayscale (image : access Rayda_Types.Image);
+   pragma Import (C, Image_Color_Grayscale, "ImageColorGrayscale");
+
+   procedure Image_Color_Contrast
+     (image : access Rayda_Types.Image; contrast : Interfaces.C.C_float);
+   pragma Import (C, Image_Color_Contrast, "ImageColorContrast");
+
+   procedure Image_Color_Brightness
+     (image : access Rayda_Types.Image; brightness : Interfaces.C.int);
+   pragma Import (C, Image_Color_Brightness, "ImageColorBrightness");
+
+   procedure Image_Color_Replace
+     (image : access Rayda_Types.Image; color, replace : Rayda_Types.Color);
+   pragma Import (C, Image_Color_Replace, "ImageColorReplace");
+
+   function Load_Image_Colors
+     (image : Rayda_Types.Image) return access Rayda_Types.Color;
+   pragma Import (C, Load_Image_Colors, "LoadImageColors");
+
+   function Load_Image_Palette
+     (image            : Rayda_Types.Image;
+      max_palette_size : Interfaces.C.int;
+      color_count      : access Interfaces.C.int)
+      return access Rayda_Types.Color;
+   pragma Import (C, Load_Image_Palette, "LoadImagePalette");
+
+   procedure Unload_Image_Colors (colors : access Rayda_Types.Color);
+   pragma Import (C, Unload_Image_Colors, "UnloadImageColors");
+
+   procedure Unload_Image_Palette (colors : access Rayda_Types.Color);
+   pragma Import (C, Unload_Image_Palette, "UnloadImagePalette");
+
+   function Get_Image_Alpha_Border
+     (image : Rayda_Types.Image; threshold : Interfaces.C.C_float)
+      return Rayda_Types.Rectangle;
+   pragma Import (C, Get_Image_Alpha_Border, "GetImageAlphaBorder");
+
+   function Get_Image_Color
+     (image : Rayda_Types.Image; x, y : Interfaces.C.int)
+      return Rayda_Types.Color;
+   pragma Import (C, Get_Image_Color, "GetImageColor");
+
+   procedure Image_Clear_Background
+     (dst : access Rayda_Types.Image; color : Rayda_Types.Color);
+   pragma Import (C, Image_Clear_Background, "ImageClearBackground");
+
+   procedure Image_Draw_Pixel
+     (dst          : access Rayda_Types.Image;
+      pos_x, pos_y : Interfaces.C.int;
+      color        : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Pixel, "ImageDrawPixel");
+
+   procedure Image_Draw_Pixel_V
+     (dst      : access Rayda_Types.Image;
+      position : Rayda_Types.Vector2;
+      color    : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Pixel_V, "ImageDrawPixelV");
+
+   procedure Image_Draw_Line
+     (dst                                            :
+        access Rayda_Types.Image;
+      start_pos_x, start_pos_y, end_pos_x, end_pos_y : Interfaces.C.int;
+      color                                          : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Line, "ImageDrawLine");
+
+   procedure Image_Draw_Line_V
+     (dst    : access Rayda_Types.Image;
+      start  : Rayda_Types.Vector2;
+      ending : Rayda_Types.Vector2;
+      color  : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Line_V, "ImageDrawLineV");
+
+   procedure Image_Draw_Line_Ex
+     (dst    : access Rayda_Types.Image;
+      start  : Rayda_Types.Vector2;
+      ending : Rayda_Types.Vector2;
+      thick  : Interfaces.C.int;
+      color  : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Line_Ex, "ImageDrawLineEx");
+
+   procedure Image_Draw_Circle
+     (dst                        : access Rayda_Types.Image;
+      center_x, center_y, radius : Interfaces.C.int;
+      color                      : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Circle, "ImageDrawCircle");
+
+   procedure Image_Draw_Circle_V
+     (dst    : access Rayda_Types.Image;
+      center : Rayda_Types.Vector2;
+      radius : Interfaces.C.int;
+      color  : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Circle_V, "ImageDrawCircleV");
+
+   procedure Image_Draw_Circle_Lines
+     (dst                        : access Rayda_Types.Image;
+      center_x, center_y, radius : Interfaces.C.int;
+      color                      : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Circle_Lines, "ImageDrawCircleLines");
+
+   procedure Image_Draw_Circle_Lines_V
+     (dst    : access Rayda_Types.Image;
+      center : Rayda_Types.Vector2;
+      radius : Interfaces.C.int;
+      color  : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Circle_Lines_V, "ImageDrawCircleLinesV");
+
+   procedure Image_Draw_Rectangle
+     (dst                         : access Rayda_Types.Image;
+      pos_x, pos_y, width, height : Interfaces.C.int;
+      color                       : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Rectangle, "ImageDrawRectangle");
+
+   procedure Image_Draw_Rectangle_V
+     (dst            : access Rayda_Types.Image;
+      position, size : Rayda_Types.Vector2;
+      color          : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Rectangle_V, "ImageDrawRectangleV");
+
+   procedure Image_Draw_Rectangle_Rec
+     (dst   : access Rayda_Types.Image;
+      rec   : Rayda_Types.Rectangle;
+      color : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Rectangle_Rec, "ImageDrawRectangleRec");
+
+   procedure Image_Draw_Rectangle_Lines
+     (dst   : access Rayda_Types.Image;
+      rec   : Rayda_Types.Rectangle;
+      thick : Interfaces.C.int;
+      color : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Rectangle_Lines, "ImageDrawRectangleLines");
+
+   procedure Image_Draw_Triangle
+     (dst        : access Rayda_Types.Image;
+      v1, v2, v3 : Rayda_Types.Vector2;
+      color      : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Triangle, "ImageDrawTriangle");
+
+   procedure Image_Draw_Triangle_Ex
+     (dst        : access Rayda_Types.Image;
+      v1, v2, v3 : Rayda_Types.Vector2;
+      c1, c2, c3 : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Triangle_Ex, "ImageDrawTriangleEx");
+
+   procedure Image_Draw_Triangle_Lines
+     (dst        : access Rayda_Types.Image;
+      v1, v2, v3 : Rayda_Types.Vector2;
+      color      : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Triangle_Lines, "ImageDrawTriangleLines");
+
+   procedure Image_Draw_Triangle_Fan
+     (dst         : access Rayda_Types.Image;
+      points      : access Rayda_Types.Vector2;
+      point_count : Interfaces.C.int;
+      color       : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Triangle_Fan, "ImageDrawTriangleFan");
+
+   procedure Image_Draw_Triangle_Strip
+     (dst         : access Rayda_Types.Image;
+      points      : access Rayda_Types.Vector2;
+      point_count : Interfaces.C.int;
+      color       : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Triangle_Strip, "ImageDrawTriangleStrip");
+
+   procedure Image_Draw
+     (dst              : access Rayda_Types.Image;
+      src              : Rayda_Types.Image;
+      src_rec, dst_rec : Rayda_Types.Rectangle;
+      tint             : Rayda_Types.Color);
+   pragma Import (C, Image_Draw, "ImageDraw");
+
+   procedure Image_Draw_Text
+     (dst                     : access Rayda_Types.Image;
+      text                    : Interfaces.C.char_array;
+      pos_x, pos_y, font_size : Interfaces.C.int;
+      color                   : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Text, "ImageDrawText");
+
+   procedure Image_Draw_Text_Ex
+     (dst                : access Rayda_Types.Image;
+      font               : Rayda_Types.Font;
+      text               : Interfaces.C.char_array;
+      position           : Rayda_Types.Vector2;
+      font_size, spacing : Interfaces.C.C_float;
+      tint               : Rayda_Types.Color);
+   pragma Import (C, Image_Draw_Text_Ex, "ImageDrawTextEx");
 end Rayda;
