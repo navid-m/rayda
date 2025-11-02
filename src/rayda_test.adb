@@ -1,6 +1,7 @@
 with Rayda;
 with Rayda_Types;
 with Interfaces.C; use Interfaces.C;
+with Interfaces.C.Strings;
 
 procedure Rayda_Snowfall is
 
@@ -28,7 +29,7 @@ procedure Rayda_Snowfall is
    Speed_Y : Float_Array;
 
 begin
-   Rayda.Init_Window (Screen_Width, Screen_Height, "Snowfall");
+   Rayda.Init_Window (Screen_Width, Screen_Height, Interfaces.C.To_C ("Snowfall" & ASCII.NUL));
    Rayda.Set_Target_FPS (60);
 
    for I in 1 .. Snow_Count loop
