@@ -1,0 +1,10 @@
+name = "rayda"
+description = "Full raylib bindings"
+version = "0.1.0-dev"
+
+authors = ["Navid M"]
+maintainers = ["Navid M <navidm@navidm.com>"]
+maintainers-logins = ["navid-m"]
+licenses = "GPL-3.0-only"
+website = ""
+tags = ["raylib"]
