@@ -38,8 +38,17 @@ package Raylib_Bindings is
    procedure Draw_Circle(center_x, center_y : Interfaces.C.int; radius : Interfaces.C.C_float; color : Raylib_Types.Color);
    pragma Import (C, Draw_Circle, "DrawCircle");
    
+   procedure Draw_Circle_V(center : Raylib_Types.Vector2; radius : Interfaces.C.C_float; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Circle_V, "DrawCircleV");
+   
    procedure Draw_Rectangle(pos_x, pos_y, width, height : Interfaces.C.int; color : Raylib_Types.Color);
    pragma Import (C, Draw_Rectangle, "DrawRectangle");
+   
+   procedure Draw_Rectangle_V(position : Raylib_Types.Vector2; size : Raylib_Types.Vector2; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Rectangle_V, "DrawRectangleV");
+   
+   procedure Draw_Rectangle_Rec(rec : Raylib_Types.Rectangle; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Rectangle_Rec, "DrawRectangleRec");
    
    procedure Draw_Line(start_pos_x, start_pos_y, end_pos_x, end_pos_y : Interfaces.C.int; color : Raylib_Types.Color);
    pragma Import (C, Draw_Line, "DrawLine");
@@ -59,6 +68,9 @@ package Raylib_Bindings is
    procedure Draw_Text(text : Interfaces.C.char_array; pos_x, pos_y, font_size : Interfaces.C.int; color : Raylib_Types.Color);
    pragma Import (C, Draw_Text, "DrawText");
    
+   function Measure_Text(text : Interfaces.C.char_array; font_size : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Measure_Text, "MeasureText");
+   
    function Is_Key_Pressed(key : Interfaces.C.int) return Interfaces.C.int;
    pragma Import (C, Is_Key_Pressed, "IsKeyPressed");
    
@@ -71,11 +83,23 @@ package Raylib_Bindings is
    function Get_Mouse_Position return Raylib_Types.Vector2;
    pragma Import (C, Get_Mouse_Position, "GetMousePosition");
    
+   procedure Begin_Mode2D(camera : Raylib_Types.Camera2D);
+   pragma Import (C, Begin_Mode2D, "BeginMode2D");
+   
+   procedure End_Mode2D;
+   pragma Import (C, End_Mode2D, "EndMode2D");
+   
    procedure Begin_Mode3D(camera : Raylib_Types.Camera3D);
    pragma Import (C, Begin_Mode3D, "BeginMode3D");
    
    procedure End_Mode3D;
    pragma Import (C, End_Mode3D, "EndMode3D");
+   
+   function Get_Time return Interfaces.C.C_float;
+   pragma Import (C, Get_Time, "GetTime");
+   
+   function Get_Frame_Time return Interfaces.C.C_float;
+   pragma Import (C, Get_Frame_Time, "GetFrameTime");
    
    procedure Init_Audio_Device;
    pragma Import (C, Init_Audio_Device, "InitAudioDevice");
