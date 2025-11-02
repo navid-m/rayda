@@ -184,8 +184,8 @@ package Rayda is
    pragma Import (C, Draw_Ring_Lines, "DrawRingLines");
 
    procedure Draw_Rectangle
-     (pos_x, pos_y, width, height : Interfaces.C.int;
-      color                       : Rayda_Types.Color);
+      (pos_x, pos_y, width, height : Interfaces.C.int;
+      color_ptr                    : access Rayda_Types.Color);
    pragma Import (C, Draw_Rectangle, "DrawRectangle");
 
    procedure Draw_Rectangle_V

@@ -7,6 +7,7 @@ package Rayda_Primitives is
       r, g, b, a : Interfaces.C.unsigned_char;
    end record;
    pragma Convention (C, Color);
+   pragma Pack(Color);
 
    type Vector2 is record
       x, y : Interfaces.C.C_float;
