@@ -1611,39 +1611,114 @@ package Rayda is
       return access Interfaces.C.unsigned;
    pragma Import (C, Compute_SHA1, "ComputeSHA1");
 
-   procedure Begin_Texture_Mode
-     (target : Rayda_Types.Render_Texture2D);
+   procedure Begin_Texture_Mode (target : Rayda_Types.Render_Texture2D);
    pragma Import (C, Begin_Texture_Mode, "BeginTextureMode");
 
    procedure End_Texture_Mode;
    pragma Import (C, End_Texture_Mode, "EndTextureMode");
 
-   procedure Begin_Shader_Mode
-     (shader : Rayda_Types.Shader);
+   procedure Begin_Shader_Mode (shader : Rayda_Types.Shader);
    pragma Import (C, Begin_Shader_Mode, "BeginShaderMode");
 
    procedure End_Shader_Mode;
    pragma Import (C, End_Shader_Mode, "EndShaderMode");
 
-   procedure Begin_Blend_Mode
-     (mode : Interfaces.C.int);
+   procedure Begin_Blend_Mode (mode : Interfaces.C.int);
    pragma Import (C, Begin_Blend_Mode, "BeginBlendMode");
 
    procedure End_Blend_Mode;
    pragma Import (C, End_Blend_Mode, "EndBlendMode");
 
-   procedure Begin_Scissor_Mode
-     (x, y, width, height : Interfaces.C.int);
+   procedure Begin_Scissor_Mode (x, y, width, height : Interfaces.C.int);
    pragma Import (C, Begin_Scissor_Mode, "BeginScissorMode");
 
    procedure End_Scissor_Mode;
    pragma Import (C, End_Scissor_Mode, "EndScissorMode");
 
-   procedure Begin_Vr_Stereo_Mode
-     (config : Rayda_Types.VR_Stereo_Config);
+   procedure Begin_Vr_Stereo_Mode (config : Rayda_Types.VR_Stereo_Config);
    pragma Import (C, Begin_Vr_Stereo_Mode, "BeginVrStereoMode");
 
    procedure End_Vr_Stereo_Mode;
    pragma Import (C, End_Vr_Stereo_Mode, "EndVrStereoMode");
+
+   function Load_Shader
+     (vs_file_name, fs_file_name : Interfaces.C.char_array)
+      return Rayda_Types.Shader;
+   pragma Import (C, Load_Shader, "LoadShader");
+
+   function Load_Shader_From_Memory
+     (vs_code, fs_code : Interfaces.C.char_array) return Rayda_Types.Shader;
+   pragma Import (C, Load_Shader_From_Memory, "LoadShaderFromMemory");
+
+   function Is_Shader_Valid
+     (shader : Rayda_Types.Shader) return Interfaces.C.int;
+   pragma Import (C, Is_Shader_Valid, "IsShaderValid");
+
+   function Get_Shader_Location
+     (shader : Rayda_Types.Shader; uniform_name : Interfaces.C.char_array)
+      return Interfaces.C.int;
+   pragma Import (C, Get_Shader_Location, "GetShaderLocation");
+
+   function Get_Shader_Location_Attrib
+     (shader : Rayda_Types.Shader; attrib_name : Interfaces.C.char_array)
+      return Interfaces.C.int;
+   pragma Import (C, Get_Shader_Location_Attrib, "GetShaderLocationAttrib");
+
+   procedure Set_Shader_Value
+     (shader       : Rayda_Types.Shader;
+      loc_index    : Interfaces.C.int;
+      value        : System.Address;
+      uniform_type : Interfaces.C.int);
+   pragma Import (C, Set_Shader_Value, "SetShaderValue");
+
+   procedure Set_Shader_Value_V
+     (shader       : Rayda_Types.Shader;
+      loc_index    : Interfaces.C.int;
+      value        : System.Address;
+      uniform_type : Interfaces.C.int;
+      count        : Interfaces.C.int);
+   pragma Import (C, Set_Shader_Value_V, "SetShaderValueV");
+
+   procedure Set_Shader_Value_Matrix
+     (shader    : Rayda_Types.Shader;
+      loc_index : Interfaces.C.int;
+      mat       : Rayda_Types.Matrix);
+   pragma Import (C, Set_Shader_Value_Matrix, "SetShaderValueMatrix");
+
+   procedure Set_Shader_Value_Texture
+     (shader    : Rayda_Types.Shader;
+      loc_index : Interfaces.C.int;
+      texture   : Rayda_Types.Texture2D);
+   pragma Import (C, Set_Shader_Value_Texture, "SetShaderValueTexture");
+
+   function Get_Screen_To_World_Ray
+     (position : Rayda_Types.Vector2; camera : Rayda_Types.Camera3D)
+      return Rayda_Types.Ray;
+   pragma Import (C, Get_Screen_To_World_Ray, "GetScreenToWorldRay");
+
+   function Get_Screen_To_World_Ray_Ex
+     (position      : Rayda_Types.Vector2;
+      camera        : Rayda_Types.Camera3D;
+      width, height : Interfaces.C.int) return Rayda_Types.Ray;
+   pragma Import (C, Get_Screen_To_World_Ray_Ex, "GetScreenToWorldRayEx");
+
+   function Get_World_To_Screen
+     (position : Rayda_Types.Vector3; camera : Rayda_Types.Camera3D)
+      return Rayda_Types.Vector2;
+   pragma Import (C, Get_World_To_Screen, "GetWorldToScreen");
+
+   function Get_World_To_Screen_Ex
+     (position      : Rayda_Types.Vector3;
+      camera        : Rayda_Types.Camera3D;
+      width, height : Interfaces.C.int) return Rayda_Types.Vector2;
+   pragma Import (C, Get_World_To_Screen_Ex, "GetWorldToScreenEx");
+
+   function Get_Camera_Matrix
+     (camera : Rayda_Types.Camera3D) return Rayda_Types.Matrix;
+   pragma Import (C, Get_Camera_Matrix, "GetCameraMatrix");
+
+   function Get_Camera_Matrix2D
+     (camera : Rayda_Types.Camera2D) return Rayda_Types.Matrix;
+   pragma Import (C, Get_Camera_Matrix2D, "GetCameraMatrix2D");
 
 end Rayda;
