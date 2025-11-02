@@ -1611,4 +1611,39 @@ package Rayda is
       return access Interfaces.C.unsigned;
    pragma Import (C, Compute_SHA1, "ComputeSHA1");
 
+   procedure Begin_Texture_Mode
+     (target : Rayda_Types.Render_Texture2D);
+   pragma Import (C, Begin_Texture_Mode, "BeginTextureMode");
+
+   procedure End_Texture_Mode;
+   pragma Import (C, End_Texture_Mode, "EndTextureMode");
+
+   procedure Begin_Shader_Mode
+     (shader : Rayda_Types.Shader);
+   pragma Import (C, Begin_Shader_Mode, "BeginShaderMode");
+
+   procedure End_Shader_Mode;
+   pragma Import (C, End_Shader_Mode, "EndShaderMode");
+
+   procedure Begin_Blend_Mode
+     (mode : Interfaces.C.int);
+   pragma Import (C, Begin_Blend_Mode, "BeginBlendMode");
+
+   procedure End_Blend_Mode;
+   pragma Import (C, End_Blend_Mode, "EndBlendMode");
+
+   procedure Begin_Scissor_Mode
+     (x, y, width, height : Interfaces.C.int);
+   pragma Import (C, Begin_Scissor_Mode, "BeginScissorMode");
+
+   procedure End_Scissor_Mode;
+   pragma Import (C, End_Scissor_Mode, "EndScissorMode");
+
+   procedure Begin_Vr_Stereo_Mode
+     (config : Rayda_Types.VR_Stereo_Config);
+   pragma Import (C, Begin_Vr_Stereo_Mode, "BeginVrStereoMode");
+
+   procedure End_Vr_Stereo_Mode;
+   pragma Import (C, End_Vr_Stereo_Mode, "EndVrStereoMode");
+
 end Rayda;
