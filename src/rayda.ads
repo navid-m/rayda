@@ -1,6 +1,7 @@
 with Interfaces.C;
 with Interfaces.C.Strings;
 with Rayda_Types;
+with System;
 
 package Rayda is
    pragma Preelaborate;
@@ -1118,7 +1119,8 @@ package Rayda is
    pragma Import (C, Image_Crop, "ImageCrop");
 
    procedure Image_Alpha_Crop
-     (image : access Rayda_Types.Image; threshold : Interfaces.C.C_float);
+     (image     : access Rayda_Types.Image;
+      threshold : Interfaces.C.C_float);
    pragma Import (C, Image_Alpha_Crop, "ImageAlphaCrop");
 
    procedure Image_Alpha_Clear
@@ -1505,5 +1507,105 @@ package Rayda is
 
    function Get_Gesture_Pinch_Angle return Interfaces.C.C_float;
    pragma Import (C, Get_Gesture_Pinch_Angle, "GetGesturePinchAngle");
+
+   procedure Swap_Screen_Buffer;
+   pragma Import (C, Swap_Screen_Buffer, "SwapScreenBuffer");
+
+   procedure Poll_Input_Events;
+   pragma Import (C, Poll_Input_Events, "PollInputEvents");
+
+   procedure Wait_Time (seconds : Interfaces.C.double);
+   pragma Import (C, Wait_Time, "WaitTime");
+
+   function Load_Random_Sequence
+     (count, min, max : Interfaces.C.unsigned) return access Interfaces.C.int;
+   pragma Import (C, Load_Random_Sequence, "LoadRandomSequence");
+
+   procedure Unload_Random_Sequence (sequence : access Interfaces.C.int);
+   pragma Import (C, Unload_Random_Sequence, "UnloadRandomSequence");
+
+   procedure Take_Screenshot (file_name : Interfaces.C.char_array);
+   pragma Import (C, Take_Screenshot, "TakeScreenshot");
+
+   procedure Set_Config_Flags (flags : Interfaces.C.unsigned);
+   pragma Import (C, Set_Config_Flags, "SetConfigFlags");
+
+   procedure Open_URL (url : Interfaces.C.char_array);
+   pragma Import (C, Open_URL, "OpenURL");
+
+   procedure Trace_Log
+     (log_level : Interfaces.C.int;
+      text : Interfaces.C.char_array);
+   pragma Import (C, Trace_Log, "TraceLog");
+
+   procedure Set_Trace_Log_Level (log_level : Interfaces.C.int);
+   pragma Import (C, Set_Trace_Log_Level, "SetTraceLogLevel");
+
+   function Mem_Alloc (size : Interfaces.C.unsigned) return System.Address;
+   pragma Import (C, Mem_Alloc, "MemAlloc");
+
+   function Mem_Realloc
+     (ptr : System.Address;
+      size : Interfaces.C.unsigned) return System.Address;
+   pragma Import (C, Mem_Realloc, "MemRealloc");
+
+   procedure Mem_Free (ptr : System.Address);
+   pragma Import (C, Mem_Free, "MemFree");
+
+   function Export_Data_As_Code
+     (data : access Interfaces.C.unsigned_char;
+      data_size : Interfaces.C.int;
+      file_name : Interfaces.C.char_array) return Interfaces.C.int;
+   pragma Import (C, Export_Data_As_Code, "ExportDataAsCode");
+
+   function Load_File_Text
+     (file_name : Interfaces.C.char_array) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Load_File_Text, "LoadFileText");
+
+   procedure Unload_File_Text (text : Interfaces.C.Strings.chars_ptr);
+   pragma Import (C, Unload_File_Text, "UnloadFileText");
+
+   function Save_File_Text
+     (file_name : Interfaces.C.char_array;
+      text : Interfaces.C.Strings.chars_ptr) return Interfaces.C.int;
+   pragma Import (C, Save_File_Text, "SaveFileText");
+
+   function Compress_Data
+     (data : access Interfaces.C.unsigned_char;
+      data_size : Interfaces.C.int;
+      comp_data_size : access Interfaces.C.int) return access Interfaces.C.unsigned_char;
+   pragma Import (C, Compress_Data, "CompressData");
+
+   function Decompress_Data
+     (comp_data : access Interfaces.C.unsigned_char;
+      comp_data_size : Interfaces.C.int;
+      data_size : access Interfaces.C.int) return access Interfaces.C.unsigned_char;
+   pragma Import (C, Decompress_Data, "DecompressData");
+
+   function Encode_Data_Base64
+     (data : access Interfaces.C.unsigned_char;
+      data_size : Interfaces.C.int;
+      output_size : access Interfaces.C.int) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Encode_Data_Base64, "EncodeDataBase64");
+
+   function Decode_Data_Base64
+     (data : access Interfaces.C.unsigned_char;
+      output_size : access Interfaces.C.int) return access Interfaces.C.unsigned_char;
+   pragma Import (C, Decode_Data_Base64, "DecodeDataBase64");
+
+   function Compute_CRC32
+     (data : access Interfaces.C.unsigned_char;
+      data_size : Interfaces.C.int) return Interfaces.C.unsigned;
+   pragma Import (C, Compute_CRC32, "ComputeCRC32");
+
+   function Compute_MD5
+     (data : access Interfaces.C.unsigned_char;
+      data_size : Interfaces.C.int) return access Interfaces.C.unsigned;
+   pragma Import (C, Compute_MD5, "ComputeMD5");
+
+   function Compute_SHA1
+     (data : access Interfaces.C.unsigned_char;
+      data_size : Interfaces.C.int) return access Interfaces.C.unsigned;
+   pragma Import (C, Compute_SHA1, "ComputeSHA1");
 
 end Rayda;
