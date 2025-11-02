@@ -549,12 +549,12 @@ package Rayda is
    pragma Import (C, Draw_Model, "DrawModel");
 
    procedure Draw_Model_Ex
-     (model         : Rayda_Types.Model;
-      position      : Rayda_Types.Vector3;
-      rotation_axis : Rayda_Types.Vector3;
+     (model          : Rayda_Types.Model;
+      position       : Rayda_Types.Vector3;
+      rotation_axis  : Rayda_Types.Vector3;
       rotation_angle : Interfaces.C.C_float;
-      scale         : Rayda_Types.Vector3;
-      tint          : Rayda_Types.Color);
+      scale          : Rayda_Types.Vector3;
+      tint           : Rayda_Types.Color);
    pragma Import (C, Draw_Model_Ex, "DrawModelEx");
 
    procedure Draw_Model_Wires
@@ -590,8 +590,7 @@ package Rayda is
    pragma Import (C, Draw_Model_Points_Ex, "DrawModelPointsEx");
 
    procedure Draw_Bounding_Box
-     (box   : Rayda_Types.Bounding_Box;
-      color : Rayda_Types.Color);
+     (box : Rayda_Types.Bounding_Box; color : Rayda_Types.Color);
    pragma Import (C, Draw_Bounding_Box, "DrawBoundingBox");
 
    procedure Draw_Billboard
@@ -612,15 +611,15 @@ package Rayda is
    pragma Import (C, Draw_Billboard_Rec, "DrawBillboardRec");
 
    procedure Draw_Billboard_Pro
-     (camera    : Rayda_Types.Camera3D;
-      texture   : Rayda_Types.Texture2D;
-      source    : Rayda_Types.Rectangle;
-      position  : Rayda_Types.Vector3;
-      up        : Rayda_Types.Vector3;
-      size      : Rayda_Types.Vector2;
-      origin    : Rayda_Types.Vector2;
-      rotation  : Interfaces.C.C_float;
-      tint      : Rayda_Types.Color);
+     (camera   : Rayda_Types.Camera3D;
+      texture  : Rayda_Types.Texture2D;
+      source   : Rayda_Types.Rectangle;
+      position : Rayda_Types.Vector3;
+      up       : Rayda_Types.Vector3;
+      size     : Rayda_Types.Vector2;
+      origin   : Rayda_Types.Vector2;
+      rotation : Interfaces.C.C_float;
+      tint     : Rayda_Types.Color);
    pragma Import (C, Draw_Billboard_Pro, "DrawBillboardPro");
 
    function Check_Collision_Recs
