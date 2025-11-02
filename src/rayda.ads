@@ -1721,4 +1721,77 @@ package Rayda is
      (camera : Rayda_Types.Camera2D) return Rayda_Types.Matrix;
    pragma Import (C, Get_Camera_Matrix2D, "GetCameraMatrix2D");
 
+   function Is_Window_State
+     (flag : Interfaces.C.unsigned) return Interfaces.C.int;
+   pragma Import (C, Is_Window_State, "IsWindowState");
+
+   procedure Set_Window_State
+     (flags : Interfaces.C.unsigned);
+   pragma Import (C, Set_Window_State, "SetWindowState");
+
+   procedure Clear_Window_State
+     (flags : Interfaces.C.unsigned);
+   pragma Import (C, Clear_Window_State, "ClearWindowState");
+
+   procedure Toggle_Borderless_Windowed;
+   pragma Import (C, Toggle_Borderless_Windowed, "ToggleBorderlessWindowed");
+
+   procedure Set_Window_Icons
+     (images : access Rayda_Types.Image;
+      count : Interfaces.C.int);
+   pragma Import (C, Set_Window_Icons, "SetWindowIcons");
+
+   procedure Set_Window_Max_Size
+     (width, height : Interfaces.C.int);
+   pragma Import (C, Set_Window_Max_Size, "SetWindowMaxSize");
+
+   procedure Set_Window_Opacity
+     (opacity : Interfaces.C.C_float);
+   pragma Import (C, Set_Window_Opacity, "SetWindowOpacity");
+
+   procedure Set_Window_Focused;
+   pragma Import (C, Set_Window_Focused, "SetWindowFocused");
+
+   function Get_Monitor_Count return Interfaces.C.int;
+   pragma Import (C, Get_Monitor_Count, "GetMonitorCount");
+
+   function Get_Current_Monitor return Interfaces.C.int;
+   pragma Import (C, Get_Current_Monitor, "GetCurrentMonitor");
+
+   function Get_Monitor_Position
+     (monitor : Interfaces.C.int) return Rayda_Types.Vector2;
+   pragma Import (C, Get_Monitor_Position, "GetMonitorPosition");
+
+   function Get_Monitor_Physical_Width
+     (monitor : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Get_Monitor_Physical_Width, "GetMonitorPhysicalWidth");
+
+   function Get_Monitor_Physical_Height
+     (monitor : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Get_Monitor_Physical_Height, "GetMonitorPhysicalHeight");
+
+   function Get_Monitor_Refresh_Rate
+     (monitor : Interfaces.C.int) return Interfaces.C.int;
+   pragma Import (C, Get_Monitor_Refresh_Rate, "GetMonitorRefreshRate");
+
+   function Get_Window_Scale_DPI return Rayda_Types.Vector2;
+   pragma Import (C, Get_Window_Scale_DPI, "GetWindowScaleDPI");
+
+   function Get_Monitor_Name
+     (monitor : Interfaces.C.int) return Interfaces.C.Strings.chars_ptr;
+   pragma Import (C, Get_Monitor_Name, "GetMonitorName");
+
+   procedure Set_Clipboard_Text
+     (text : Interfaces.C.char_array);
+   pragma Import (C, Set_Clipboard_Text, "SetClipboardText");
+
+   function Get_Clipboard_Image return Rayda_Types.Image;
+   pragma Import (C, Get_Clipboard_Image, "GetClipboardImage");
+
+   procedure Enable_Event_Waiting;
+   pragma Import (C, Enable_Event_Waiting, "EnableEventWaiting");
+
+   procedure Disable_Event_Waiting;
+   pragma Import (C, Disable_Event_Waiting, "DisableEventWaiting");
+
 end Rayda;
