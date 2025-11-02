@@ -15,6 +15,7 @@ package Rayda is
    use type Rayda_Types.Camera3D;
    use type Rayda_Types.Model;
    use type Rayda_Types.Music;
+   use type Rayda_Types.Image;
 
    procedure Init_Window
      (width, height : Interfaces.C.int; title : Interfaces.C.char_array);
@@ -489,44 +490,44 @@ package Rayda is
    pragma Import (C, End_Mode3D, "EndMode3D");
 
    procedure Draw_Cube
-     (position : Rayda_Types.Vector3;
+     (position              : Rayda_Types.Vector3;
       width, height, length : Interfaces.C.C_float;
-      color : Rayda_Types.Color);
+      color                 : Rayda_Types.Color);
    pragma Import (C, Draw_Cube, "DrawCube");
 
    procedure Draw_Cube_Wires
-     (position : Rayda_Types.Vector3;
+     (position              : Rayda_Types.Vector3;
       width, height, length : Interfaces.C.C_float;
-      color : Rayda_Types.Color);
+      color                 : Rayda_Types.Color);
    pragma Import (C, Draw_Cube_Wires, "DrawCubeWires");
 
    procedure Draw_Sphere
      (center_pos : Rayda_Types.Vector3;
-      radius : Interfaces.C.C_float;
-      color : Rayda_Types.Color);
+      radius     : Interfaces.C.C_float;
+      color      : Rayda_Types.Color);
    pragma Import (C, Draw_Sphere, "DrawSphere");
 
    procedure Draw_Sphere_Wires
-     (center_pos : Rayda_Types.Vector3;
-      radius : Interfaces.C.C_float;
+     (center_pos    : Rayda_Types.Vector3;
+      radius        : Interfaces.C.C_float;
       rings, slices : Interfaces.C.int;
-      color : Rayda_Types.Color);
+      color         : Rayda_Types.Color);
    pragma Import (C, Draw_Sphere_Wires, "DrawSphereWires");
 
    procedure Draw_Cylinder
-     (position : Rayda_Types.Vector3;
+     (position                  : Rayda_Types.Vector3;
       radius_top, radius_bottom : Interfaces.C.C_float;
-      height : Interfaces.C.C_float;
-      slices : Interfaces.C.int;
-      color : Rayda_Types.Color);
+      height                    : Interfaces.C.C_float;
+      slices                    : Interfaces.C.int;
+      color                     : Rayda_Types.Color);
    pragma Import (C, Draw_Cylinder, "DrawCylinder");
 
    procedure Draw_Cylinder_Wires
-     (position : Rayda_Types.Vector3;
+     (position                  : Rayda_Types.Vector3;
       radius_top, radius_bottom : Interfaces.C.C_float;
-      height : Interfaces.C.C_float;
-      slices : Interfaces.C.int;
-      color : Rayda_Types.Color);
+      height                    : Interfaces.C.C_float;
+      slices                    : Interfaces.C.int;
+      color                     : Rayda_Types.Color);
    pragma Import (C, Draw_Cylinder_Wires, "DrawCylinderWires");
 
    procedure Draw_Grid
@@ -541,10 +542,10 @@ package Rayda is
    pragma Import (C, Unload_Model, "UnloadModel");
 
    procedure Draw_Model
-     (model : Rayda_Types.Model;
+     (model    : Rayda_Types.Model;
       position : Rayda_Types.Vector3;
-      scale : Interfaces.C.C_float;
-      tint : Rayda_Types.Color);
+      scale    : Interfaces.C.C_float;
+      tint     : Rayda_Types.Color);
    pragma Import (C, Draw_Model, "DrawModel");
 
    function Check_Collision_Recs
@@ -730,4 +731,46 @@ package Rayda is
    function Get_Music_Time_Played
      (music : Rayda_Types.Music) return Interfaces.C.C_float;
    pragma Import (C, Get_Music_Time_Played, "GetMusicTimePlayed");
+
+   function Load_Image
+     (file_name : Interfaces.C.char_array) return Rayda_Types.Image;
+   pragma Import (C, Load_Image, "LoadImage");
+
+   function Load_Image_Raw
+     (file_name     : Interfaces.C.char_array;
+      width, height : Interfaces.C.int;
+      format        : Interfaces.C.int;
+      header_size   : Interfaces.C.int) return Rayda_Types.Image;
+   pragma Import (C, Load_Image_Raw, "LoadImageRaw");
+
+   function Load_Image_SVG
+     (file_name_or_data : Interfaces.C.char_array;
+      width, height     : Interfaces.C.int) return Rayda_Types.Image;
+   pragma Import (C, Load_Image_SVG, "LoadImageSvg");
+
+   function Load_Image_Anim
+     (file_name : Interfaces.C.char_array; frames : access Interfaces.C.int)
+      return Rayda_Types.Image;
+   pragma Import (C, Load_Image_Anim, "LoadImageAnim");
+
+   function Load_Image_From_Memory
+     (file_type : Interfaces.C.char_array;
+      file_data : access Interfaces.C.unsigned_char;
+      data_size : Interfaces.C.int) return Rayda_Types.Image;
+   pragma Import (C, Load_Image_From_Memory, "LoadImageFromMemory");
+
+   procedure Unload_Image (image : Rayda_Types.Image);
+   pragma Import (C, Unload_Image, "UnloadImage");
+
+   function Export_Image
+     (image : Rayda_Types.Image; file_name : Interfaces.C.char_array)
+      return Interfaces.C.int;
+   pragma Import (C, Export_Image, "ExportImage");
+
+   function Export_Image_To_Memory
+     (image     : Rayda_Types.Image;
+      file_type : Interfaces.C.char_array;
+      file_size : access Interfaces.C.int)
+      return access Interfaces.C.unsigned_char;
+   pragma Import (C, Export_Image_To_Memory, "ExportImageToMemory");
 end Rayda;
