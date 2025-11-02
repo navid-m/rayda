@@ -98,6 +98,21 @@ package Raylib_Bindings is
    function Get_Mouse_Position return Raylib_Types.Vector2;
    pragma Import (C, Get_Mouse_Position, "GetMousePosition");
    
+   function Get_Mouse_X return Interfaces.C.int;
+   pragma Import (C, Get_Mouse_X, "GetMouseX");
+   
+   function Get_Mouse_Y return Interfaces.C.int;
+   pragma Import (C, Get_Mouse_Y, "GetMouseY");
+   
+   function Get_Mouse_Wheel_Move return Interfaces.C.int;
+   pragma Import (C, Get_Mouse_Wheel_Move, "GetMouseWheelMove");
+   
+   function Get_Screen_Width return Interfaces.C.int;
+   pragma Import (C, Get_Screen_Width, "GetScreenWidth");
+   
+   function Get_Screen_Height return Interfaces.C.int;
+   pragma Import (C, Get_Screen_Height, "GetScreenHeight");
+   
    procedure Begin_Mode2D(camera : Raylib_Types.Camera2D);
    pragma Import (C, Begin_Mode2D, "BeginMode2D");
    
@@ -155,6 +170,18 @@ package Raylib_Bindings is
    procedure Draw_Rectangle_Lines(pos_x, pos_y, width, height : Interfaces.C.int; color : Raylib_Types.Color);
    pragma Import (C, Draw_Rectangle_Lines, "DrawRectangleLines");
 
+   procedure Draw_Texture_Pro(texture : Raylib_Types.Texture; source, dest : Raylib_Types.Rectangle; origin : Raylib_Types.Vector2; rotation : Interfaces.C.C_float; tint : Raylib_Types.Color);
+   pragma Import (C, Draw_Texture_Pro, "DrawTexturePro");
+   
+   procedure Draw_Texture_Rec(texture : Raylib_Types.Texture; source : Raylib_Types.Rectangle; position : Raylib_Types.Vector2; tint : Raylib_Types.Color);
+   pragma Import (C, Draw_Texture_Rec, "DrawTextureRec");
+   
+   procedure Draw_Circle_Lines(center_x, center_y : Interfaces.C.int; radius : Interfaces.C.C_float; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Circle_Lines, "DrawCircleLines");
+   
+   procedure Draw_Rectangle_Rounded(rec : Raylib_Types.Rectangle; roundness : Interfaces.C.C_float; segments : Interfaces.C.int; color : Raylib_Types.Color);
+   pragma Import (C, Draw_Rectangle_Rounded, "DrawRectangleRounded");
+   
    procedure Draw_Text_Ex(font : Raylib_Types.Font; text : Interfaces.C.char_array; position : Raylib_Types.Vector2; font_size, spacing : Interfaces.C.C_float; tint : Raylib_Types.Color);
    pragma Import (C, Draw_Text_Ex, "DrawTextEx");
 
