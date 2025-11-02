@@ -185,7 +185,7 @@ package Rayda is
 
    procedure Draw_Rectangle
       (pos_x, pos_y, width, height : Interfaces.C.int;
-      color_ptr                    : access Rayda_Types.Color);
+      color_ptr                    : Rayda_Types.Color);
    pragma Import (C, Draw_Rectangle, "DrawRectangle");
 
    procedure Draw_Rectangle_V

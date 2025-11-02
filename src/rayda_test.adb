@@ -26,7 +26,7 @@ begin
       Rayda.Begin_Drawing;
 
       Rayda.Clear_Background (Background);
-      Rayda.Draw_Rectangle(300, 200, 200, 100, Rect_Color'Access);
+      Rayda.Draw_Rectangle(300, 200, 200, 100, Rect_Color);
 
       Rayda.End_Drawing;
    end loop;
