@@ -14,7 +14,6 @@ package Rayda is
    use type Rayda_Types.Camera2D;
    use type Rayda_Types.Camera3D;
 
-   -- Window-related functions
    procedure Init_Window
      (width, height : Interfaces.C.int; title : Interfaces.C.char_array);
    pragma Import (C, Init_Window, "InitWindow");
@@ -73,7 +72,6 @@ package Rayda is
    procedure Restore_Window;
    pragma Import (C, Restore_Window, "RestoreWindow");
 
-   -- Timing-related functions
    procedure Set_Target_FPS (fps : Interfaces.C.int);
    pragma Import (C, Set_Target_FPS, "SetTargetFPS");
 
@@ -86,7 +84,6 @@ package Rayda is
    function Get_Frame_Time return Interfaces.C.C_float;
    pragma Import (C, Get_Frame_Time, "GetFrameTime");
 
-   -- Drawing-related functions
    procedure Begin_Drawing;
    pragma Import (C, Begin_Drawing, "BeginDrawing");
 
@@ -96,11 +93,12 @@ package Rayda is
    procedure Clear_Background (color : Rayda_Types.Color);
    pragma Import (C, Clear_Background, "ClearBackground");
 
-   -- Basic shapes drawing
-   procedure Draw_Pixel (pos_x, pos_y : Interfaces.C.int; color : Rayda_Types.Color);
+   procedure Draw_Pixel
+     (pos_x, pos_y : Interfaces.C.int; color : Rayda_Types.Color);
    pragma Import (C, Draw_Pixel, "DrawPixel");
 
-   procedure Draw_Pixel_V (position : Rayda_Types.Vector2; color : Rayda_Types.Color);
+   procedure Draw_Pixel_V
+     (position : Rayda_Types.Vector2; color : Rayda_Types.Color);
    pragma Import (C, Draw_Pixel_V, "DrawPixelV");
 
    procedure Draw_Line
@@ -118,7 +116,6 @@ package Rayda is
       color              : Rayda_Types.Color);
    pragma Import (C, Draw_Line_Ex, "DrawLineEx");
 
-   -- Circle drawing
    procedure Draw_Circle
      (center_x, center_y : Interfaces.C.int;
       radius             : Interfaces.C.C_float;
@@ -162,26 +159,25 @@ package Rayda is
    pragma Import (C, Draw_Circle_Sector_Lines, "DrawCircleSectorLines");
 
    procedure Draw_Ring
-     (center            : Rayda_Types.Vector2;
-      inner_radius      : Interfaces.C.C_float;
-      outer_radius      : Interfaces.C.C_float;
-      start_angle       : Interfaces.C.C_float;
-      end_angle         : Interfaces.C.C_float;
-      segments          : Interfaces.C.int;
-      color             : Rayda_Types.Color);
+     (center       : Rayda_Types.Vector2;
+      inner_radius : Interfaces.C.C_float;
+      outer_radius : Interfaces.C.C_float;
+      start_angle  : Interfaces.C.C_float;
+      end_angle    : Interfaces.C.C_float;
+      segments     : Interfaces.C.int;
+      color        : Rayda_Types.Color);
    pragma Import (C, Draw_Ring, "DrawRing");
 
    procedure Draw_Ring_Lines
-     (center            : Rayda_Types.Vector2;
-      inner_radius      : Interfaces.C.C_float;
-      outer_radius      : Interfaces.C.C_float;
-      start_angle       : Interfaces.C.C_float;
-      end_angle         : Interfaces.C.C_float;
-      segments          : Interfaces.C.int;
-      color             : Rayda_Types.Color);
+     (center       : Rayda_Types.Vector2;
+      inner_radius : Interfaces.C.C_float;
+      outer_radius : Interfaces.C.C_float;
+      start_angle  : Interfaces.C.C_float;
+      end_angle    : Interfaces.C.C_float;
+      segments     : Interfaces.C.int;
+      color        : Rayda_Types.Color);
    pragma Import (C, Draw_Ring_Lines, "DrawRingLines");
 
-   -- Rectangle drawing
    procedure Draw_Rectangle
      (pos_x, pos_y, width, height : Interfaces.C.int;
       color                       : Rayda_Types.Color);
@@ -210,9 +206,9 @@ package Rayda is
    pragma Import (C, Draw_Rectangle_Lines, "DrawRectangleLines");
 
    procedure Draw_Rectangle_Lines_Ex
-     (rec       : Rayda_Types.Rectangle;
+     (rec        : Rayda_Types.Rectangle;
       line_thick : Interfaces.C.C_float;
-      color     : Rayda_Types.Color);
+      color      : Rayda_Types.Color);
    pragma Import (C, Draw_Rectangle_Lines_Ex, "DrawRectangleLinesEx");
 
    procedure Draw_Rectangle_Rounded
@@ -228,7 +224,8 @@ package Rayda is
       segments   : Interfaces.C.int;
       line_thick : Interfaces.C.C_float;
       color      : Rayda_Types.Color);
-   pragma Import (C, Draw_Rectangle_Rounded_Lines, "DrawRectangleRoundedLines");
+   pragma
+     Import (C, Draw_Rectangle_Rounded_Lines, "DrawRectangleRoundedLines");
 
    procedure Draw_Rectangle_Gradient
      (pos_x, pos_y, width, height : Interfaces.C.int;
@@ -246,11 +243,9 @@ package Rayda is
    pragma Import (C, Draw_Rectangle_Gradient_H, "DrawRectangleGradientH");
 
    procedure Draw_Rectangle_Gradient_Ex
-     (rec                   : Rayda_Types.Rectangle;
-      col1, col2, col3, col4 : Rayda_Types.Color);
+     (rec : Rayda_Types.Rectangle; col1, col2, col3, col4 : Rayda_Types.Color);
    pragma Import (C, Draw_Rectangle_Gradient_Ex, "DrawRectangleGradientEx");
 
-   -- Triangle and polygon drawing
    procedure Draw_Triangle
      (v1, v2, v3 : Rayda_Types.Vector2; color : Rayda_Types.Color);
    pragma Import (C, Draw_Triangle, "DrawTriangle");
@@ -373,15 +368,14 @@ package Rayda is
       font_size, spacing : Interfaces.C.C_float) return Rayda_Types.Vector2;
    pragma Import (C, Measure_Text_Ex, "MeasureTextEx");
 
-   -- Font loading
    function Load_Font
      (file_name : Interfaces.C.char_array) return Rayda_Types.Font;
    pragma Import (C, Load_Font, "LoadFont");
 
    function Load_Font_Ex
-     (file_name  : Interfaces.C.char_array;
-      font_size  : Interfaces.C.int;
-      font_chars : access Interfaces.C.int;
+     (file_name   : Interfaces.C.char_array;
+      font_size   : Interfaces.C.int;
+      font_chars  : access Interfaces.C.int;
       glyph_count : Interfaces.C.int) return Rayda_Types.Font;
    pragma Import (C, Load_Font_Ex, "LoadFontEx");
 
@@ -391,7 +385,6 @@ package Rayda is
    procedure Unload_Font (font : Rayda_Types.Font);
    pragma Import (C, Unload_Font, "UnloadFont");
 
-   -- Input-related functions: keyboard
    function Is_Key_Pressed (key : Interfaces.C.int) return Interfaces.C.int;
    pragma Import (C, Is_Key_Pressed, "IsKeyPressed");
 
@@ -413,7 +406,6 @@ package Rayda is
    function Get_Char_Pressed return Interfaces.C.int;
    pragma Import (C, Get_Char_Pressed, "GetCharPressed");
 
-   -- Input-related functions: mouse
    function Is_Mouse_Button_Pressed
      (button : Interfaces.C.int) return Interfaces.C.int;
    pragma Import (C, Is_Mouse_Button_Pressed, "IsMouseButtonPressed");
@@ -460,7 +452,6 @@ package Rayda is
    procedure Set_Mouse_Cursor (cursor : Interfaces.C.int);
    pragma Import (C, Set_Mouse_Cursor, "SetMouseCursor");
 
-   -- Screen-space-related functions
    function Get_Screen_Width return Interfaces.C.int;
    pragma Import (C, Get_Screen_Width, "GetScreenWidth");
 
@@ -473,7 +464,6 @@ package Rayda is
    function Get_Render_Height return Interfaces.C.int;
    pragma Import (C, Get_Render_Height, "GetRenderHeight");
 
-   -- Camera System Functions (2D)
    procedure Begin_Mode2D (camera : Rayda_Types.Camera2D);
    pragma Import (C, Begin_Mode2D, "BeginMode2D");
 
@@ -481,23 +471,21 @@ package Rayda is
    pragma Import (C, End_Mode2D, "EndMode2D");
 
    function Get_Screen_To_World2D
-     (position : Rayda_Types.Vector2;
-      camera   : Rayda_Types.Camera2D) return Rayda_Types.Vector2;
+     (position : Rayda_Types.Vector2; camera : Rayda_Types.Camera2D)
+      return Rayda_Types.Vector2;
    pragma Import (C, Get_Screen_To_World2D, "GetScreenToWorld2D");
 
    function Get_World_To_Screen2D
-     (position : Rayda_Types.Vector2;
-      camera   : Rayda_Types.Camera2D) return Rayda_Types.Vector2;
+     (position : Rayda_Types.Vector2; camera : Rayda_Types.Camera2D)
+      return Rayda_Types.Vector2;
    pragma Import (C, Get_World_To_Screen2D, "GetWorldToScreen2D");
 
-   -- Camera System Functions (3D)
    procedure Begin_Mode3D (camera : Rayda_Types.Camera3D);
    pragma Import (C, Begin_Mode3D, "BeginMode3D");
 
    procedure End_Mode3D;
    pragma Import (C, End_Mode3D, "EndMode3D");
 
-   -- Collision detection functions
    function Check_Collision_Recs
      (rec1, rec2 : Rayda_Types.Rectangle) return Interfaces.C.int;
    pragma Import (C, Check_Collision_Recs, "CheckCollisionRecs");
@@ -516,21 +504,21 @@ package Rayda is
    pragma Import (C, Check_Collision_Circle_Rec, "CheckCollisionCircleRec");
 
    function Check_Collision_Point_Rec
-     (point : Rayda_Types.Vector2;
-      rec   : Rayda_Types.Rectangle) return Interfaces.C.int;
+     (point : Rayda_Types.Vector2; rec : Rayda_Types.Rectangle)
+      return Interfaces.C.int;
    pragma Import (C, Check_Collision_Point_Rec, "CheckCollisionPointRec");
 
    function Check_Collision_Point_Circle
      (point  : Rayda_Types.Vector2;
       center : Rayda_Types.Vector2;
       radius : Interfaces.C.C_float) return Interfaces.C.int;
-   pragma Import (C, Check_Collision_Point_Circle, "CheckCollisionPointCircle");
+   pragma
+     Import (C, Check_Collision_Point_Circle, "CheckCollisionPointCircle");
 
    function Get_Collision_Rec
      (rec1, rec2 : Rayda_Types.Rectangle) return Rayda_Types.Rectangle;
    pragma Import (C, Get_Collision_Rec, "GetCollisionRec");
 
-   -- Audio device management functions
    procedure Init_Audio_Device;
    pragma Import (C, Init_Audio_Device, "InitAudioDevice");
 
@@ -543,7 +531,6 @@ package Rayda is
    procedure Set_Master_Volume (volume : Interfaces.C.C_float);
    pragma Import (C, Set_Master_Volume, "SetMasterVolume");
 
-   -- Sound loading/unloading functions
    function Load_Sound
      (file_name : Interfaces.C.char_array) return Rayda_Types.Sound;
    pragma Import (C, Load_Sound, "LoadSound");
@@ -551,7 +538,6 @@ package Rayda is
    procedure Unload_Sound (sound : Rayda_Types.Sound);
    pragma Import (C, Unload_Sound, "UnloadSound");
 
-   -- Sound playing functions
    procedure Play_Sound (sound : Rayda_Types.Sound);
    pragma Import (C, Play_Sound, "PlaySound");
 
@@ -564,7 +550,8 @@ package Rayda is
    procedure Resume_Sound (sound : Rayda_Types.Sound);
    pragma Import (C, Resume_Sound, "ResumeSound");
 
-   function Is_Sound_Playing (sound : Rayda_Types.Sound) return Interfaces.C.int;
+   function Is_Sound_Playing
+     (sound : Rayda_Types.Sound) return Interfaces.C.int;
    pragma Import (C, Is_Sound_Playing, "IsSoundPlaying");
 
    procedure Set_Sound_Volume
@@ -579,7 +566,6 @@ package Rayda is
      (sound : Rayda_Types.Sound; pan : Interfaces.C.C_float);
    pragma Import (C, Set_Sound_Pan, "SetSoundPan");
 
-   -- Random values generation functions
    procedure Set_Random_Seed (seed : Interfaces.C.unsigned);
    pragma Import (C, Set_Random_Seed, "SetRandomSeed");
 
@@ -587,7 +573,6 @@ package Rayda is
      (min, max : Interfaces.C.int) return Interfaces.C.int;
    pragma Import (C, Get_Random_Value, "GetRandomValue");
 
-   -- Color-related functions
    function Fade
      (color : Rayda_Types.Color; alpha : Interfaces.C.C_float)
       return Rayda_Types.Color;
@@ -612,27 +597,30 @@ package Rayda is
      (hue, saturation, value : Interfaces.C.C_float) return Rayda_Types.Color;
    pragma Import (C, Color_From_HSV, "ColorFromHSV");
 
-   function Get_Color (hex_value : Interfaces.C.unsigned) return Rayda_Types.Color;
+   function Get_Color
+     (hex_value : Interfaces.C.unsigned) return Rayda_Types.Color;
    pragma Import (C, Get_Color, "GetColor");
 
-   -- File management functions
    function Load_File_Data
-     (file_name   : Interfaces.C.char_array;
-      bytes_read : access Interfaces.C.unsigned) return access Interfaces.C.unsigned_char;
+     (file_name  : Interfaces.C.char_array;
+      bytes_read : access Interfaces.C.unsigned)
+      return access Interfaces.C.unsigned_char;
    pragma Import (C, Load_File_Data, "LoadFileData");
 
    procedure Unload_File_Data (data : access Interfaces.C.unsigned_char);
    pragma Import (C, Unload_File_Data, "UnloadFileData");
 
    function Save_File_Data
-     (file_name    : Interfaces.C.char_array;
-      data        : access Interfaces.C.unsigned_char;
+     (file_name      : Interfaces.C.char_array;
+      data           : access Interfaces.C.unsigned_char;
       bytes_to_write : Interfaces.C.unsigned) return Interfaces.C.int;
    pragma Import (C, Save_File_Data, "SaveFileData");
 
-   function File_Exists (file_name : Interfaces.C.char_array) return Interfaces.C.int;
+   function File_Exists
+     (file_name : Interfaces.C.char_array) return Interfaces.C.int;
    pragma Import (C, File_Exists, "FileExists");
 
-   function Directory_Exists (dir_path : Interfaces.C.char_array) return Interfaces.C.int;
+   function Directory_Exists
+     (dir_path : Interfaces.C.char_array) return Interfaces.C.int;
    pragma Import (C, Directory_Exists, "DirectoryExists");
 end Rayda;
